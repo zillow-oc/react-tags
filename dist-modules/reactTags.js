@@ -66,7 +66,10 @@ var ReactTags = React.createClass({
         var _this = this;
 
         var suggestions = props.suggestions.filter(function (item) {
-            return item.toLowerCase().search(_this.state.query.toLowerCase()) === 0;
+            if (_this.state.query !== "") {
+                return item.toLowerCase().search(_this.state.query.toLowerCase()) === 0;
+            }
+            return false;
         });
 
         this.setState({
@@ -78,6 +81,7 @@ var ReactTags = React.createClass({
         this.props.handleDelete(i);
         this.setState({ query: "" });
     },
+
     handleChange: function handleChange(e) {
         if (this.props.handleInputChange) {
             this.props.handleInputChange(e.target.value.trim());
@@ -85,7 +89,10 @@ var ReactTags = React.createClass({
 
         var query = e.target.value.trim();
         var suggestions = this.props.suggestions.filter(function (item) {
-            return item.toLowerCase().search(query.toLowerCase()) === 0;
+            if (query !== "") {
+                return item.toLowerCase().search(query.toLowerCase()) === 0;
+            }
+            return false;
         });
 
         this.setState({
